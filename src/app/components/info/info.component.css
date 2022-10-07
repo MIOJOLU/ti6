@@ -1,0 +1,7 @@
+.image-poster{
+    height: 25rem;
+    width: 100%;
+    background-color: antiquewhite;
+    background-image: url("../../../assets/breast-cancer-women.webp");
+    background-position: center;
+}

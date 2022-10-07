@@ -1,0 +1,16 @@
+<div class="pt-6 pl-7 pr-7 flex flex-row items-center justify-between h-28">
+    <div class="flex items-center" [routerLink]="['home'] ">
+        <img *ngIf="!hideLogo" class="logo" src="../../../../assets/breast-svgrepo-com (1) 1.svg" alt="">
+        <p *ngIf="!hideLogo" class="font-bold pl-1">
+            mama<br>
+            detection
+        </p>
+    </div>
+    <div >
+        <ul class="list-none">
+            <li class="inline-block pr-6"><a routerLink="/home">home</a></li>
+            <li class="inline-block pr-6"><a routerLink="/info">cancêr de mama</a></li>
+            <li class="inline-block pr-6"><a routerLink="/sobre-nos">sobre nós</a></li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="flex flex-col justify-center items-center h-full">
+    <div class="flex flex-row items-center">
+        <img class="w-28 pl-1" src="../../../../assets/breast-svgrepo-com (1) 1.svg" alt="">
+        <p class="font-bold pl-1 text-3xl">
+            mama<br>
+            detection
+        </p>
+    </div>
+    <div class="flex flex-col items-center py-3 px-2" style="width: 35rem" >
+        <p class="text-base pb-9 pt-8">
+            Utilizando a tecnologia para auxiliar na detecção de tumores em mamas.
+            Caso já possua um mamografia e deseja enviar-nos para detecção:
+        </p>
+        <input type="file" class="file-input" (change)="onFileSelected($event)" multiple #fileUpload    >  
+        <button 
+            class="file-upload rounded-lg bg-slate-500 w-full py-3"
+            (click)="fileUpload.click()"
+        >
+            <fa-icon [icon]="paperClip"></fa-icon>
+            <span class="pl-3">Enviar mamografia</span>
+        </button>
+        <span class="text-xs">
+            A mamografia deve ser nos seguintes formatos: png, jpeg.. e não pode ultrapassar 100kb.
+        </span>
+        <span *ngIf="errorType">O arquivo enviado possui tipo incorreto.</span>
+    </div>
+</div>
