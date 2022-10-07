@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { faCamera, faPaperclip} from '@fortawesome/free-solid-svg-icons';
+import { faCamera, faPaperclip, faSpinner} from '@fortawesome/free-solid-svg-icons';
+import { Image } from 'src/app/models/image';
+import { ImageService } from 'src/app/service/image.service';
 
 @Component({
   selector: 'app-home',
@@ -8,36 +10,45 @@ import { faCamera, faPaperclip} from '@fortawesome/free-solid-svg-icons';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private imageService: ImageService) { }
   camera = faCamera;
   paperClip = faPaperclip;
+  spinner = faSpinner;
 
   typesAccepted = ['image/png', 'image/jpeg']
   fileName = ''
   errorType = false;
+  selectedFile?: Image;
+  loading = false;
+  status ='';
 
   ngOnInit(): void {
   }
 
-  onFileSelected(event: any) {
-    const file:File = event.target.files[0];
-  
-    if (file) {
-        if (this.typesAccepted.includes(file.type)){
-          this.fileName = file.name;
-          const formData = new FormData();
-          formData.append("thumbnail", file);
-        }else{
-          this.errorType = true;
-        }
-      
-        // this.uploadSub = upload$.subscribe(event => {
-        //   if (event.type == HttpEventType.UploadProgress) {
-        //     this.uploadProgress = Math.round(100 * (event.loaded / event.total));
-        //   }
-        // })
-    }
-}
+
+  processFile(imageInput: any) {
+    this.loading = true;
+    const file: File = imageInput.files[0];
+    const reader = new FileReader();
+
+    reader.addEventListener('load', (event: any) => {
+
+      this.selectedFile = new Image(event.target.result, file);
+
+      this.imageService.uploadImage(this.selectedFile.file).subscribe(
+        (res) => {
+          localStorage.setItem('id-image', JSON.parse(res)._id)
+          this.status = 'loaded';
+          this.loading = false;
+        },
+        (err) => {
+          this.status = 'error';
+          this.loading = false;
+        })
+    });
+
+    reader.readAsDataURL(file);
+  }
 
 
 }

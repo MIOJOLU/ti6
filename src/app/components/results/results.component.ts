@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ImageService } from 'src/app/service/image.service';
 
 @Component({
   selector: 'app-results',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResultsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private imageService: ImageService) { }
 
   ngOnInit(): void {
+    this.imageService.getImage(localStorage.getItem('id-image')).subscribe(res => {
+      console.log(res);
+    })
+    
   }
 
 }

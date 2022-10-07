@@ -11,17 +11,35 @@
             Utilizando a tecnologia para auxiliar na detecção de tumores em mamas.
             Caso já possua um mamografia e deseja enviar-nos para detecção:
         </p>
-        <input type="file" class="file-input" (change)="onFileSelected($event)" multiple #fileUpload    >  
+        <input type="file"
+         class="file-input" 
+         (change)="processFile(fileUpload)"
+         accept="image/*"
+         #fileUpload    >  
         <button 
             class="file-upload rounded-lg bg-slate-500 w-full py-3"
             (click)="fileUpload.click()"
+            [disabled]="loading"
+            *ngIf="status !== 'loaded'"
         >
-            <fa-icon [icon]="paperClip"></fa-icon>
-            <span class="pl-3">Enviar mamografia</span>
+            <div *ngIf="!loading">
+                <fa-icon [icon]="paperClip"></fa-icon>
+                <span class="pl-3">Enviar mamografia</span>
+            </div>
+            <div *ngIf="loading">
+                <fa-icon [icon]="spinner" [spin]="true"></fa-icon>
+            </div>
         </button>
+        <div *ngIf="status === 'loaded'">
+            ✅ Carregado com sucesso...
+            <a routerLink="/results">
+                Deseja ver os resultados? Clique aqui
+            </a>
+        </div>
         <span class="text-xs">
-            A mamografia deve ser nos seguintes formatos: png, jpeg.. e não pode ultrapassar 100kb.
+            A mamografia deve ser nos seguintes formatos: png, jpeg e jpg.
         </span>
         <span *ngIf="errorType">O arquivo enviado possui tipo incorreto.</span>
+        <span *ngIf="status === 'error'" style="font-size: 12px">Infelizmente não foi possível carregar sua imagem!</span>
     </div>
 </div>

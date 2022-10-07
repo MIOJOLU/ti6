@@ -10,6 +10,7 @@ import { ModalComponent } from './components/modals/modal/modal.component';
 import { InfoComponent } from './components/info/info.component';
 import { SobreNosComponent } from './components/sobre-nos/sobre-nos.component';
 import { ResultsComponent } from './components/results/results.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ResultsComponent } from './components/results/results.component';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule, 
     AppRoutingModule,
     FontAwesomeModule
   ],
